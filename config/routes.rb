@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   get "signup", to: "users#new"
   #post "users", to: "users#create"
   resources :users,except: [:new]
+  # added last 3 routes
   get "login", to: "sessions#new"
   post "login",to: "sessions#create"
-  get "logout",to: "sessions#destroy"
+  # using delete because it is somewhat related to delete a session 
+  delete "logout",to: "sessions#destroy"
 end

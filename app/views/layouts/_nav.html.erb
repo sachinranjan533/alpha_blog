@@ -21,7 +21,12 @@
         </div>
       </li>
         <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
+        # added Log in path on nav bar
+        <%= link_to "Log In",login_path,class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+        # added Log out path on nav bar
+        <%= link_to "Logout",logout_path,method: :delete,class: "nav-link" %>
         </li>
       </ul>
       <form class="d-flex">
