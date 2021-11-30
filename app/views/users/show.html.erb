@@ -2,7 +2,12 @@
 
 <%= gravatar_for @user,size: 400 %>
 <div class="text-center mt-4">
-<%= link_to 'Edit Your Profile', edit_user_path(@user), class: "btn btn-outline-info"  %>
+
+<%# checking whether user logged in or not and user profile is current user which is logged in or not %>
+
+<% if logged_in? and @user==current_user %>
+    <%= link_to 'Edit Your Profile', edit_user_path(@user), class: "btn btn-outline-info"  %>
+<%end%>
 </div>
 <%= render 'articles/article' ,objs: @articles %>
 
