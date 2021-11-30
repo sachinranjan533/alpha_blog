@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :require_user,except: [:show,:index]
+  before_action :require_same_user,only: [:edit,:update]
 
   def show
   end
@@ -48,5 +50,13 @@ class ArticlesController < ApplicationController
 
   def article_params
     params.require(:article).permit(:title, :description)
+  end
+
+  #checking whether articel which is editing is his own article.If not he cannot edit.
+  def require_same_user
+    if @article.user!=current_user
+      flash[:notice]="You can edit your own article and not others article"
+      redirect_to article_path(@article)
+    end
   end
 end

@@ -19,4 +19,12 @@ class ApplicationController < ActionController::Base
         !!current_user
     end
 
+    # checking whether that want to edit information is logged in.  
+    def require_user
+        if !logged_in?
+            flash[:alert]="You need to be login to perform following action"
+            redirect_to login_path
+        end
+    end
+
 end
