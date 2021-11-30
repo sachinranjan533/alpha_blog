@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
-    before_action :require_user,except: [:show,:index]
-    before_action :require_same_user,only: [:edit,:update]
+    before_action :set_user,only: [:show,:edit,:update,:destroy]
+    before_action :require_user,except: [:edit,:update]
+    before_action :require_same_user,only: [:edit,:update,:destroy]
 
     def show
-        @user=User.find(params[:id])
         @articles=@user.articles.paginate(page: params[:page], per_page: 2)
     end
     def index
@@ -23,10 +23,8 @@ class UsersController < ApplicationController
         end
     end
     def edit
-        @user=User.find(params[:id])
     end
     def update
-        @user=User.find(params[:id])
         if @user.update(params.require(:user).permit(:username,:email,:password))
             flash[:notice]="User data updated successfully"
             redirect_to users_path
@@ -35,6 +33,23 @@ class UsersController < ApplicationController
         end
     end
 
+    #adding destroy method for delete
+
+    def destroy
+        @user.destroy
+        # destroying the session of particular user
+        session[:id]=nil
+        flash[:notice]="Account and all related articles is deleted."
+        redirect_to articles_path
+    end
+
+    private
+
+    def set_user
+        @user=User.find(params[:id])
+    end
+
+    #checking whether profile which is editing is his own profile.If not he cannot edit.
     def require_same_user
         if @user!=current_user
             flash[:notice]="You can only edit your own profile"

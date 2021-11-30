@@ -24,18 +24,23 @@
       <%# if logged in then show edit and view option in form of dropdown.%>
       <% if logged_in? %>
         <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <%= current_user.username %>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= current_user.username %>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <%= link_to "Edit Your Profile", edit_user_path(current_user), class: "dropdown-item" %>
             <%= link_to "View Your Profile", user_path(current_user), class: "dropdown-item" %>
-        </div>
+
+            <%# adding delete option in dropdown %>
+
+            <%= link_to "Delete Your Profile", user_path(current_user),method: :delete, class: "dropdown-item text-danger",data: { confirm: "Are you confirm?" } %>
+
+          </div>
         </li>
         <li class="nav-item">
           <%= link_to "Logout",logout_path,method: :delete,class: "nav-link" %>
         </li>
-      # if logged out then show login and sign up option.
+      <%# if logged out then show login and sign up option.%>
       <% else %>
         <li class="nav-item">
           <%= link_to "Log In",login_path,class: "nav-link" %>
