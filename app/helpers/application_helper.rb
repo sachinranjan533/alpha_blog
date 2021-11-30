@@ -12,5 +12,5 @@ module ApplicationHelper
         # !! convert any value to true and false.
         !!current_user
     end
-
+    
 end
