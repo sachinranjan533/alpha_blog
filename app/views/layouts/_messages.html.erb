@@ -1,6 +1,7 @@
 <div class="container">
     <% flash.each do |name, msg| %>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%# checking the name if it is notice then it success else failure"%>
+        <div class="alert alert-<%= name == "notice" ? "success" : "alert" %> alert-dismissible fade show" role="alert">
             <p class="mb-0"><%= msg %></p>    
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>

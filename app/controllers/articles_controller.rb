@@ -53,8 +53,9 @@ class ArticlesController < ApplicationController
   end
 
   #checking whether articel which is editing is his own article.If not he cannot edit.
+  #if current user is not admin then redirect
   def require_same_user
-    if @article.user!=current_user
+    if @article.user!=current_user and !current_user.admin?
       flash[:notice]="You can edit your own article and not others article"
       redirect_to article_path(@article)
     end

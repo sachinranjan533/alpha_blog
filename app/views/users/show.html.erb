@@ -3,9 +3,9 @@
 <%= gravatar_for @user,size: 400 %>
 <div class="text-center mt-4">
 
-<%# checking whether user logged in or not and user profile is current user which is logged in or not %>
+<%# checking whether user logged in or not and user profile is current user which is logged in or not and current user is admin or not%>
 
-<% if logged_in? and @user==current_user %>
+<% if logged_in? and ( @user==current_user or current_user.admin?) %>
     <%= link_to 'Edit Your Profile', edit_user_path(@user), class: "btn btn-outline-info"  %>
 <%end%>
 </div>

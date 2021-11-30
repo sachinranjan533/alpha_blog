@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-    before_action :set_user,only: [:show,:edit,:update,:destroy]
-    before_action :require_user,except: [:edit,:update]
-    before_action :require_same_user,only: [:edit,:update,:destroy]
+    before_action :set_user, only: [:show,:edit,:update,:destroy]
+    before_action :require_user, only: [:edit,:update]
+    before_action :require_same_user, only: [:edit,:update,:destroy]
 
     def show
         @articles=@user.articles.paginate(page: params[:page], per_page: 2)
@@ -37,8 +37,8 @@ class UsersController < ApplicationController
 
     def destroy
         @user.destroy
-        # destroying the session of particular user
-        session[:id]=nil
+        # destroying the session of particular user if it is current user deleting the profile
+        session[:id]=nil if @user==current_user # not equal if admin is deleting someoe else account
         flash[:notice]="Account and all related articles is deleted."
         redirect_to articles_path
     end
@@ -50,9 +50,10 @@ class UsersController < ApplicationController
     end
 
     #checking whether profile which is editing is his own profile.If not he cannot edit.
+    # redirect if current user is not admin
     def require_same_user
-        if @user!=current_user
-            flash[:notice]="You can only edit your own profile"
+        if @user!=current_user and !current_user.admin?
+            flash[:notice]="You can only edit or delete your own profile"
             redirect_to user_path
         end
     end
