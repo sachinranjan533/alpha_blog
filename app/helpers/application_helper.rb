@@ -1,16 +1,8 @@
 module ApplicationHelper
 
-    def current_user
-        # if current user is logged in then it's details is stored in session
-        # and we can get information about user.
-
-        # || if value exist then return that else return nil.
-        @current_user ||=User.find(session[:id]) if session[:id]
-    end
-
-    def logged_in?
-        # !! convert any value to true and false.
-        !!current_user
-    end
+    #if helper method in helper file then it is only avaliable to view.
+    # if helper method in controller then it is available to controller.
+    # we can specify method in controller as helper methods for view using below syntax
+    # helper_methods :method1,:method2
     
 end
