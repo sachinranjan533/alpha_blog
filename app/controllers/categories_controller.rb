@@ -9,7 +9,7 @@ class CategoriesController < ApplicationController
     end
   
     def show
-  
+        @category=Category.find(params[:id]) #finding category based on ID.
     end
     
     # creating action create.
