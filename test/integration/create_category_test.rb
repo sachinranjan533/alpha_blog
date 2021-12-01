@@ -12,4 +12,15 @@ class CreateCategoryTest < ActionDispatch::IntegrationTest
     assert_response :success # once you are following the redirect make sure that you are successfully able to do that.
     assert_match "Sports", response.body # matching the string "Sports" in the body.
   end
+
+  test "get new category form and reject invalid category" do
+    get "/categories/new" # getting the url
+    assert_response :success # if get the url then it is success
+    assert_no_difference "Category.count" do # no difference in case of invalid category
+      post categories_path ,params: { category: {name: " "} } # post the form.
+    end
+    assert_match "errors", response.body # matching the string "errors" in the body.
+    assert_select "div.alert" # matching the class "alert" in div tag html body
+    assert_select "h4.alert-heading" # matching the class "alert heading" in h4 tag in html body.
+  end
 end
