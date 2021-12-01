@@ -20,7 +20,7 @@ class CategoryTest <ActiveSupport::TestCase
     # defining test which check whether name is unique or not
     test "name should be unique" do
         @category.save #first we need to stor in test DB to check uniqueness.
-        @category2=Category.new(name: "news")
+        @category2=Category.new(name: "Sports")
         assert_not @category2.valid?
     end
 
@@ -32,7 +32,7 @@ class CategoryTest <ActiveSupport::TestCase
 
     # defining test which check whether name is not too short
     test "name should not be too short" do
-        @category.name="aa"
+        @category.name="a"
         assert_not @category.valid?
     end
 

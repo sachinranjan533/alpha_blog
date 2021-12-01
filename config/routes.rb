@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   post "login",to: "sessions#create"
   # using delete because it is somewhat related to delete a session 
   delete "logout",to: "sessions#destroy"
+  # defining routes.
+  resources :categories,except: [:destroy]
 end
