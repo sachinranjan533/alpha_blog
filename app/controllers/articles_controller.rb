@@ -19,6 +19,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
+    byebug
     @article.user=current_user # calling current_user helper methods
     if @article.save
       flash[:notice] = "Article was created successfully."
@@ -49,7 +50,7 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :description)
+    params.require(:article).permit(:title, :description,:category_ids)
   end
 
   #checking whether articel which is editing is his own article.If not he cannot edit.
